@@ -4,6 +4,7 @@ int main()
 {
 	Logger::SetPriority(Debug);
 	Logger::EnableFileOutput();
+	Logger::SetTimeStampFormat("%T %d-%m-%Y");
 
 	Logger::Trace("Logging int: %d", 1);
 	Logger::Debug("Logging int: %d", 2);

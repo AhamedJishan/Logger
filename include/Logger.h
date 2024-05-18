@@ -28,7 +28,7 @@ private:
 	std::FILE* file = 0;
 
 	char timestampBuffer[80];
-	const char* timestampFormat = "%T %d-%m-%Y  ";
+	const char* timestampFormat = "%T %d-%m-%Y";
 
 public:
 	static void SetPriority(LogPriority newPriority)
@@ -47,6 +47,16 @@ public:
 	static void EnableFileOutput(const char* filepath)
 	{
 		get_instance().enable_file_output(filepath);
+	}
+
+	static const char* GetTimeStampFormat()
+	{
+		return get_instance().timestampFormat;
+	}
+	static void SetTimeStampFormat(const char* newTimeStampFormat)
+	{
+		Logger& logger = get_instance();
+		logger.timestampFormat = newTimeStampFormat;
 	}
 
 	template<typename... Args>
@@ -90,7 +100,7 @@ private:
 		}
 	}
 
-	// Copy and Assignment constructors are deleted as only one instance is required
+	// Copy and Assignment Constructors are deleted as only one instance is required
 	Logger(const Logger&) = delete;
 	Logger operator=(const Logger&) = delete;
 
@@ -131,14 +141,14 @@ private:
 
 		if (priority >= logPriority)
 		{
-			printf(get_timestamp());
+			printf("%s  ", get_timestamp());
 			printf(logPriorityString);
 			printf(msg, args...);
 			printf("\n");
 
 			if (file)
 			{
-				fprintf(file, get_timestamp());
+				fprintf(file, "%s  ", get_timestamp());
 				fprintf(file, logPriorityString);
 				fprintf(file, msg, args...);
 				fprintf(file, "\n");

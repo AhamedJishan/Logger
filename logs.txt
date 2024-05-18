@@ -1,0 +1,5 @@
+00:51:58 19-05-2024  [Debug]	Logging int: 2
+00:51:58 19-05-2024  [Info ]	Logging int: 3
+00:51:58 19-05-2024  [Warn ]	Logging int: 4
+00:51:58 19-05-2024  [Error]	Logging int: 5
+00:51:58 19-05-2024  [Crit ]	Logging int: 6
