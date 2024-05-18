@@ -42,7 +42,7 @@ public:
 
 	static void EnableFileOutput()
 	{
-		get_instance().enable_file_output("log/logs.txt");
+		get_instance().enable_file_output("logs.txt");
 	}
 	static void EnableFileOutput(const char* filepath)
 	{
