@@ -3,7 +3,6 @@
 int main()
 {
 	Logger::SetPriority(Debug);
-	Logger::EnableFileOutput();
 
 	Logger::Trace("Logging int: %d", 1);
 	Logger::Debug("Logging int: %d", 2);

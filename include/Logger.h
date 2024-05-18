@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <cstdio>
+#include <ctime>
 
 
 enum LogPriority
@@ -22,10 +23,17 @@ private:
 	LogPriority logPriority = LogPriority::Info;
 	std::FILE* file = 0;
 
+	char timestampBuffer[80];
+	const char* timestampFormat = "%T %d-%m-%Y  ";
+
 public:
 	static void SetPriority(LogPriority newPriority)
 	{
 		get_instance().logPriority = newPriority;
+	}
+	static LogPriority GetPriority()
+	{
+		return get_instance().logPriority;
 	}
 
 	static void EnableFileOutput()
@@ -112,16 +120,27 @@ private:
 	{
 		if (priority >= logPriority)
 		{
+			printf(get_timestamp());
 			printf(logPriorityString);
 			printf(msg, args...);
 			printf("\n");
 
 			if (file)
 			{
+				fprintf(file, get_timestamp());
 				fprintf(file, logPriorityString);
 				fprintf(file, msg, args...);
 				fprintf(file, "\n");
 			}
 		}
+	}
+
+	const char* get_timestamp()
+	{
+		std::time_t current_time = std::time(0);
+		std::tm* timestamp = localtime(&current_time);
+
+		std::strftime(timestampBuffer, sizeof(timestampBuffer), timestampFormat, timestamp);
+		return timestampBuffer;
 	}
 };
