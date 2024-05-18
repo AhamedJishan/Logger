@@ -116,7 +116,11 @@ private:
 	}
 	void close_file()
 	{
-		std::fclose(file);
+		if (file)
+		{
+			std::fclose(file);
+			file = 0;
+		}
 	}
 
 	template<typename... Args>
