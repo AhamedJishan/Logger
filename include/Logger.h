@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <cstdio>
 #include <ctime>
+#include <thread>
+#include <mutex>
 
 
 enum LogPriority
@@ -20,6 +22,8 @@ enum LogPriority
 class Logger
 {
 private:
+	std::mutex threadLock;
+
 	LogPriority logPriority = LogPriority::Info;
 	std::FILE* file = 0;
 
@@ -118,6 +122,9 @@ private:
 	template<typename... Args>
 	void log(LogPriority priority, const char* logPriorityString, const char* msg, Args... args)
 	{
+		// Thread Safety
+		std::lock_guard<std::mutex> lock(threadLock);
+
 		if (priority >= logPriority)
 		{
 			printf(get_timestamp());

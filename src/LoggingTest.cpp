@@ -10,5 +10,6 @@ int main()
 	Logger::Warning("Logging int: %d", 4);
 	Logger::Error("Logging int: %d", 5);
 	Logger::Critical("Logging int: %d", 6);
+
 	return 0;
 }
